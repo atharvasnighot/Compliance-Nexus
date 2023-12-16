@@ -2,7 +2,11 @@ package com.nexus.backend.service;
 
 import com.nexus.backend.entity.Updates;
 import com.nexus.backend.entity.User;
-import com.nexus.backend.repository.UpdatesRepository;
+import com.nexus.backend.entity.preferences.Category;
+import com.nexus.backend.entity.preferences.Industry;
+import com.nexus.backend.entity.preferences.Ministry;
+import com.nexus.backend.entity.preferences.State;
+import com.nexus.backend.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
@@ -34,6 +38,18 @@ public class UpdatesService {
     @Autowired
     private EmailSenderService emailSenderService;
 
+    @Autowired
+    private MinistryRepository ministryRepository;
+
+    @Autowired
+    private IndustryRepository industryRepository;
+
+    @Autowired
+    private CategoryRepository categoryRepository;
+
+    @Autowired
+    private StateRepository stateRepository;
+
     @Value("${file.upload.directory}")
     private String uploadDirectory;
 
@@ -41,6 +57,34 @@ public class UpdatesService {
 
         newUpdate.setDate(LocalDateTime.now());
         newUpdate.setUploaderId(userId);
+
+        if (newUpdate.getMinistry() != null) {
+            Ministry ministry = newUpdate.getMinistry().getId() != null
+                    ? ministryRepository.findById(newUpdate.getMinistry().getId()).orElse(null)
+                    : null;
+            newUpdate.setMinistry(ministry);
+        }
+
+        if (newUpdate.getIndustry() != null) {
+            Industry industry = newUpdate.getIndustry().getId() != null
+                    ? industryRepository.findById(newUpdate.getIndustry().getId()).orElse(null)
+                    : null;
+            newUpdate.setIndustry(industry);
+        }
+
+        if (newUpdate.getCategory() != null) {
+            Category category = newUpdate.getCategory().getId() != null
+                    ? categoryRepository.findById(newUpdate.getCategory().getId()).orElse(null)
+                    : null;
+            newUpdate.setCategory(category);
+        }
+
+        if (newUpdate.getState() != null) {
+            State state = newUpdate.getState().getId() != null
+                    ? stateRepository.findById(newUpdate.getState().getId()).orElse(null)
+                    : null;
+            newUpdate.setState(state);
+        }
 
         if (pdfFile != null) {
             String pdfPath = storePdf(pdfFile);
@@ -55,10 +99,10 @@ public class UpdatesService {
     public void sendMailsToUsers(Updates newUpdate){
 
         List<User> usersWithPreferences = userPreferenceService.getUsersWithPreferences(
-                newUpdate.getMinistry().getId(),
-                newUpdate.getIndustry().getId(),
-                newUpdate.getCategory().getId(),
-                newUpdate.getState().getId()
+                (newUpdate.getMinistry() != null) ? newUpdate.getMinistry().getId() : null,
+                (newUpdate.getIndustry() != null) ? newUpdate.getIndustry().getId() : null,
+                (newUpdate.getCategory() != null) ? newUpdate.getCategory().getId() : null,
+                (newUpdate.getState() != null) ? newUpdate.getState().getId() : null
         );
 
         String mailBody = newUpdate.getTitle() + "\n\n" + newUpdate.getDescription();

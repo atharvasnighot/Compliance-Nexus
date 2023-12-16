@@ -8,7 +8,6 @@ import com.nexus.backend.entity.preferences.Ministry;
 import com.nexus.backend.entity.preferences.State;
 import com.nexus.backend.repository.*;
 import com.nexus.backend.specification.ActSpecification;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -41,20 +40,33 @@ public class ActsService {
         newAct.setDate(LocalDateTime.now());
         newAct.setUploaderId(userId);
 
-        Integer ministryId = newAct.getMinistry().getId();
-        Integer industryId = newAct.getIndustry().getId();
-        Integer categoryId = newAct.getCategory().getId();
-        Integer stateId = newAct.getState().getId();
+        if (newAct.getMinistry() != null) {
+            Ministry ministry = newAct.getMinistry().getId() != null
+                    ? ministryRepository.findById(newAct.getMinistry().getId()).orElse(null)
+                    : null;
+            newAct.setMinistry(ministry);
+        }
 
-        Ministry ministry = ministryRepository.findById(ministryId).orElseThrow(() -> new EntityNotFoundException("Ministry not found with ID: " + ministryId));
-        Industry industry = industryRepository.findById(industryId).orElseThrow(() -> new EntityNotFoundException("Industry not found with ID: " + industryId));
-        Category category = categoryRepository.findById(categoryId).orElseThrow(() -> new EntityNotFoundException("Category not found with ID: " + categoryId));
-        State state = stateRepository.findById(stateId).orElseThrow(() -> new EntityNotFoundException("State not found with ID: " + stateId));
+        if (newAct.getIndustry() != null) {
+            Industry industry = newAct.getIndustry().getId() != null
+                    ? industryRepository.findById(newAct.getIndustry().getId()).orElse(null)
+                    : null;
+            newAct.setIndustry(industry);
+        }
 
-        newAct.setMinistry(ministry);
-        newAct.setIndustry(industry);
-        newAct.setCategory(category);
-        newAct.setState(state);
+        if (newAct.getCategory() != null) {
+            Category category = newAct.getCategory().getId() != null
+                    ? categoryRepository.findById(newAct.getCategory().getId()).orElse(null)
+                    : null;
+            newAct.setCategory(category);
+        }
+
+        if (newAct.getState() != null) {
+            State state = newAct.getState().getId() != null
+                    ? stateRepository.findById(newAct.getState().getId()).orElse(null)
+                    : null;
+            newAct.setState(state);
+        }
 
         newAct = actRepository.save(newAct);
 

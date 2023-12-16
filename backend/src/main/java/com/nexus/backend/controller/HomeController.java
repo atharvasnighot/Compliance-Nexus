@@ -1,5 +1,6 @@
 package com.nexus.backend.controller;
 
+import com.nexus.backend.service.AiService;
 import com.nexus.backend.service.EmailSenderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,8 +23,5 @@ public class HomeController {
         return "Welcome to Compliance Nexus";
     }
 
-    @GetMapping("/secured")
-    public String secured(){
-        return "Welcome to Secured Compliance Nexus";
-    }
+
 }

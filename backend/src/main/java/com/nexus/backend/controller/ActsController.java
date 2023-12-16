@@ -1,9 +1,11 @@
 package com.nexus.backend.controller;
 
+import com.nexus.backend.dto.Tender;
 import com.nexus.backend.entity.Act;
 import com.nexus.backend.entity.User;
 import com.nexus.backend.repository.ActRepository;
 import com.nexus.backend.service.ActsService;
+import com.nexus.backend.service.AiService;
 import com.nexus.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,6 +26,9 @@ public class ActsController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private AiService aiService;
 
     @PostMapping("/create")
     public ResponseEntity<Act> createAct(@RequestBody Act newAct, @RequestHeader("Authorization") String jwt) throws Exception {
@@ -69,6 +74,18 @@ public class ActsController {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 
         return new ResponseEntity<>(allActs, HttpStatus.OK);
+    }
+
+    @GetMapping("/check/{actId}")
+    public ResponseEntity<String> checkIfTenderIsCompliant(@PathVariable Integer actId, @RequestBody Tender tender){
+
+        Act act = actRepository.findById(actId).get();
+        if (act == null)
+            return new ResponseEntity<>("Act not found", HttpStatus.NOT_FOUND);
+
+        String response = aiService.checkIfCompliant(act, tender);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }
 

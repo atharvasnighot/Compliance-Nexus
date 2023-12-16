@@ -27,19 +27,19 @@ public class User {
     private String contact;
 
     @ManyToOne
-    @JoinColumn(name = "ministry_id")
+   // @JoinColumn(name = "ministry_id")
     private Ministry ministry;
 
     @ManyToOne
-    @JoinColumn(name = "industry_id")
+    //@JoinColumn(name = "industry_id")
     private Industry industry;
 
     @ManyToOne
-    @JoinColumn(name = "category_id")
+    //@JoinColumn(name = "category_id")
     private Category category;
 
     @ManyToOne
-    @JoinColumn(name = "state_id")
+    //@JoinColumn(name = "state_id")
     private State state;
 
     @Override

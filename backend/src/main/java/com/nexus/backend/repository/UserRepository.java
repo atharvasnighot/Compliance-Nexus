@@ -15,21 +15,14 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     User findByEmail(String email);
 
-//    @Query("SELECT DISTINCT u FROM User u " +
-//            "WHERE " +
-//            "(:ministryId IS NULL OR u.ministry.id = :ministryId) OR " +
-//            "(:industryId IS NULL OR u.industry.id = :industryId) OR " +
-//            "(:categoryId IS NULL OR u.category.id = :categoryId) OR " +
-//            "(:stateId IS NULL OR u.state.id = :stateId)")
-//    List<User> findByPreferences(Integer ministryId, Integer industryId, Integer categoryId, Integer stateId);
-
     @Query("SELECT DISTINCT u FROM User u " +
             "WHERE " +
-            "(COALESCE(:ministryId, u.ministry.id) = u.ministry.id) AND " +
-            "(COALESCE(:industryId, u.industry.id) = u.industry.id) AND " +
-            "(COALESCE(:categoryId, u.category.id) = u.category.id) AND " +
-            "(COALESCE(:stateId, u.state.id) = u.state.id)")
+            "(:ministryId IS NULL OR u.ministry.id = :ministryId) AND " +
+            "(:industryId IS NULL OR u.industry.id = :industryId) AND " +
+            "(:categoryId IS NULL OR u.category.id = :categoryId) AND " +
+            "(:stateId IS NULL OR u.state.id = :stateId)")
     List<User> findByPreferences(Integer ministryId, Integer industryId, Integer categoryId, Integer stateId);
+
 
 
 }

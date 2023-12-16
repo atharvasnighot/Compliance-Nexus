@@ -47,10 +47,28 @@ public class ActsController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @GetMapping("/{actId}")
+    public ResponseEntity<Act> getActById(@PathVariable Integer actId) {
+        Act result = actRepository.findById(actId).get();
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
     @GetMapping("/all")
     public List<Act> getAllActs() {
         List<Act> allActs = actRepository.findAllByOrderByDateDesc();
         return allActs;
+    }
+
+    @GetMapping("/by")
+    public ResponseEntity<List<Act>> getAllActsByUserId(@RequestHeader("Authorization") String jwt) throws Exception {
+
+        Integer userId = userService.findUserProfile(jwt).getId();
+        List<Act> allActs = actRepository.findAllByUploaderId(userId);
+
+        if(allActs == null)
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+
+        return new ResponseEntity<>(allActs, HttpStatus.OK);
     }
 }
 

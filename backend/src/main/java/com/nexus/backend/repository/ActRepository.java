@@ -14,5 +14,7 @@ public interface ActRepository extends JpaRepository<Act, Integer>, JpaSpecifica
 
     List<Act> findAllByOrderByDateDesc();
 
+    List<Act> findAllByUploaderId(Integer uploaderId);
+
     List<Act> findAll(Specification<Act> spec, Sort sort);
 }

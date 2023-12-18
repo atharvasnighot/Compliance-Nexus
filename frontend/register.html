@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!----======== CSS ======== -->
+    <link rel="stylesheet" href="register.css">
+     
+    <!----===== Iconscout CSS ===== -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+   <title>Responsive Regisration Form </title>
+</head>
+<body>
+    <div class="container">
+        <header>Registration</header>
+        <form id="updateForm" action="#" onsubmit="submitForm(event)">
+            <div class="form first">
+                <div class="details-personal">
+                    <span class="title">Personal Details</span>
+                    <div class="fields">
+
+                        <div class="input-field">
+                            <label>Organization</label>
+                            <input type="text" name="organization" placeholder="Enter your Organization" required>
+                        </div>
+                        <div class="input-field">
+                            <label>Identity(Admin)</label>
+                            <select id="selectslot">
+                                <option>select</option>
+                                <option>Yes</option>
+                                <option>No</option>
+                        </select>
+                        </div>
+
+                        <div class="input-field">
+                            <label>Contact</label>
+                            <input type="text" placeholder="Enter your Contact" required>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="details ID">
+                    <span class="title">Preferences</span>
+                    <div class="fields">
+                        <div class="input-field">
+                            <label>Ministry</label>
+                            <select id="ministrySelect" name="ministry">
+                                <option>None</option>
+                            <option>International Council</option>
+                        <option>International Standard</option>
+                    <option>Ministry of Agriculture and Farmers Welfare</option>
+                <option>Ministry of Ayush</option>
+            <option>Ministry of chemicals and Fertilizers</option>
+        <option>Ministry of Civil Aviation</option>
+    <option>Ministry of Coal Ministry of power</option>
+    <option> Ministry of Commerce and Industry</option>
+    <option> Ministry of Communications</option>
+    <option>Ministry of Consumer Affairs,Food And Public Distribution</option>
+    <option>Ministry of Corporate Affairs</option>
+    <option>Ministry of Culture</option>
+    <option>Ministry of Defence</option>
+    <option>Ministry of Earth Sciences</option>
+    <option>Ministry of Education </option>
+    <option>Ministry of Electronics and Information Technology</option>
+    <option>Ministry ofEnvironment , Forest and Climate change</option>
+    <option>Ministry of Finance</option>
+    <option>Ministry of Fisheries , Animal Husbandry and Diary</option>
+    <option>Ministry of Food Processing Industries</option>
+    <option>Ministry of Food and Drug Administration , Government of </option>
+    <option>Ministry of Health and family Welfare</option>
+    <option>Ministry of Heavy Industries</option>
+    <option>Ministry of Home Affairs</option>
+    <option>Ministry of Housing and Urban Affairs</option>
+    <option>Ministry of Human Resource Development</option>
+    <option>Ministry of Human Resource Development</option>
+    <option>Ministry of Information and Broadcasting</option>
+    <option>Ministry of Jal Shakti</option>
+    <option>Ministry of Labour and Employment</option>
+    <option>Ministry of Labour and Employment</option>
+    <option>Ministry of Law and Justice</option>
+    <option>Ministry of Mines</option>
+    <option>Ministry of New and Renewable Energy</option>
+    <option>Ministry of Ports</option>
+    <option>Ministry of Power</option>
+    <option>Ministry of Power</option>
+    <option>Ministry of Road Transport and Highways</option>
+    <option>Ministry of Rural Development</option>
+    <option>Ministry of Science and technology</option>
+    <option>Ministry of Shipping</option>
+    <option>Ministry of Skill Development and Entrepreneurship</option>
+    <option>Ministry of Social Justice and Empowerment</option>
+    <option>Ministry of Statistics and Programme Implementation</option>
+    <option>Ministry of Steel</option>
+    <option>Ministry of Textiles</option>
+    <option>Ministry of Women and Child Development</option>
+    <option>National Commission for Indian Sysytem for Medicine</option>
+    <option>Natonal Payments Corporation of India</option>
+    <option>Ministry of Petroleum and Natural Gas</option>
+    <option>Ministry of Information and Broadcasting</option>
+    <option>Ministry of Shipping and Waterways</option>
+    
+                                </select>
+    
+                        
+                        </div>
+                        <div class="input-field">
+                            <label>Industry</label>
+                            
+                            <select id="industrySelect">
+                                <option>None</option>
+                            <option> Agriculture And Allied Industries</option>
+                        <option>Alcohol</option>
+                    <option> Animal Husbandry</option>
+                <option>Automotive And Auto Ancillary</option>
+            <option>Aviation</option>
+        <option>Cement</option>
+    <option> Chemical And Fertilizer</option>
+    <option>Defense</option>
+    <option> Education</option>
+    <option> Electronics</option>
+    <option> Energy</option>
+    <option> Engineering and Capital Goods</option>
+    <option> FMCG</option>
+    <option> Financial Services</option>
+    <option>Glass Based Industry</option>
+    <option>Health Care</option>
+    <option>IT / ITES</option>
+    <option>Infrastructure</option>
+    <option>Media and Environment</option>
+    <option>Metal And Mining</option>
+    <option> Oil And Gas</option>
+    <option> Pharmaceutical</option>
+    <option>Plastic</option>
+    <option>Ports</option>
+    <option>Pulp And Paper</option>
+    <option>Railways</option>
+    <option> Real Estate and Construction</option>
+    <option> Services</option>
+    <option> Shipping</option>
+    <option> Steel</option>
+    <option> Telecommunication</option>
+    <option> Textile</option>
+    <option>Tobacco</option>
+    <option>Wood Based Industry</option>
+                                </select>                     
+    
+
+                        </div>
+                        <div class="input-field">
+                            <label>Category</label>
+                            <select id="categorySelect">
+                                
+                                <option>None</option>
+                            <option>Commercial</option>
+                        <option>EHS</option>
+                    <option>Finance & Taxation</option>
+                <option>General</option>
+            <option>Industry Specific</option>
+        <option>Labour</option>
+    <option>Secretarial</option>
+                                </select>
+                        </div>
+
+                        <div class="input-field">
+                            <label>State</label>
+                            <select id="stateSelect">
+                                
+                                <option>None</option>
+                            <option> Central</option>
+                        <option>Andaman and Nicobar Islands</option>
+                        <option>Andhra Pradesh</option>
+                        <option>Arunachal Pradesh</option>
+                        <option>Assam</option>
+                        <option>Bihar</option>
+                        <option>Chandigarh</option>
+                        <option>Chhattisgarh</option>
+                        <option>Dadra and Nagar Haveli</option>
+                        <option>Damu and Diu</option>
+                        <option>Delhi</option>
+                        <option>Goa</option>
+                        <option>Gujarat</option>
+                        <option>Haryana</option>
+                        <option>Himachal Pradesh</option>
+                        <option>Jammu Kashmir</option>
+                        <option>Jharkhand</option>
+                        <option>Karnataka</option>
+                        <option>Kerala</option>
+                        <option>Ladakh</option>
+                        <option>Lakshadweep</option>
+                        <option>Madhya Pradesh</option>
+                        <option>Maharashta</option>
+                        <option>Manipur</option>
+                        <option>Meghalaya</option>
+                        <option>Mizoram</option>
+                        <option>Nagaland</option>
+                        <option>Orissa</option>
+                        <option>Podicherry</option>
+                        <option>Punjab</option>
+                        <option>Rajasthan</option>
+                        <option>Sikkim</option>
+                        <option>Tamil Nadu</option>
+                        <option>Telangana</option>
+                        <option>Tripura</option>
+                        <option>Uttar Pradesh</option>
+                        <option>Uttarakhand</option>
+                        <option> Bengal</option>
+                        
+                          </select>
+                        </div>
+                        
+                    </div>
+                    <button class="nextBtn">
+                        <span class="btnText">Submit</span>
+                    </button>
+                </div> 
+            </div>
+            
+                </div> 
+            </div>
+        </form>
+    </div>
+    <script src="register.js"></script>
+</body>
+</html>

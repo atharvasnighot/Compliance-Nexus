@@ -13,7 +13,10 @@ public class CorsConfiguration {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**");
+                registry.addMapping("/**")
+                        .allowedOrigins("http://127.0.0.1:5500") // Specify your frontend URL
+                        .allowedMethods("GET", "POST", "PUT", "DELETE") // Allow the methods you need
+                        .allowedHeaders("*");
             }
         };
     }

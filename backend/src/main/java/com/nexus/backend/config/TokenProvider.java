@@ -16,7 +16,7 @@ public class TokenProvider {
 
     public String generateToken(Authentication authentication){
 
-        String jwt = Jwts.builder().setIssuer("Cipher")
+        String jwt = Jwts.builder().setIssuer("Nexus")
                 .setIssuedAt(new Date()).setExpiration(new Date(new Date().getTime()+86400000))
                 .claim("email", authentication.getName())
                 .signWith(key)

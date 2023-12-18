@@ -32,8 +32,10 @@ public class UserController {
     @PutMapping("/update")
     public ResponseEntity<String> updateUserHandler(@RequestBody UpdateUserRequest request, @RequestHeader("Authorization") String token) throws Exception {
 
+        System.out.println("Update Request");
         User user = userService.findUserProfile(token);
         userService.updateUser(user.getId(), request);
+        System.out.println("Updating user " + user.getUsername());
         String response = "User updates successfully";
 
         return new ResponseEntity<>(response, HttpStatus.ACCEPTED);

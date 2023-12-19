@@ -96,10 +96,11 @@ public class TenderService {
     }
 
     public List<Tender> searchActs(String searchString) {
-        Specification<Tender> titleSpecification = TenderSpecification.titleContains(searchString);
+        Specification<Tender> titleOrDescriptionSpecification = TenderSpecification.titleOrDescriptionContains(searchString);
 
-        Specification<Tender> finalSpecification = Specification.where(titleSpecification);
+        Specification<Tender> finalSpecification = Specification.where(titleOrDescriptionSpecification);
 
         return tenderRepository.findAll(finalSpecification);
     }
+
 }

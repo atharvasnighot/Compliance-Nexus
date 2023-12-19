@@ -24,7 +24,7 @@ public class AiService {
         Prompt prompt = promptTemplate.apply(variables);
 
         ChatLanguageModel model = OpenAiChatModel.builder()
-                .apiKey("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").modelName(GPT_3_5_TURBO)
+                .apiKey("KEY").modelName(GPT_3_5_TURBO)
                 .temperature(0.3)
                 .build();
         String response = model.generate(prompt.text());
@@ -71,7 +71,7 @@ public class AiService {
         Prompt prompt = promptTemplate.apply(variables);
 
         ChatLanguageModel model = OpenAiChatModel.builder()
-                .apiKey("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")
+                .apiKey("KEY")
                 .modelName(GPT_3_5_TURBO)
                 .temperature(0.3)
                 .build();

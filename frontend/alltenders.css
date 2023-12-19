@@ -1,0 +1,104 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+  background-color: #E4F9F5;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: #30E3CA;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.search-tenders {
+  margin-bottom: 20px;
+}
+
+.search-tenders input {
+  width: 100%;
+  padding: 8px;
+  border-radius: 5px;
+  border: 2px solid #30E3CA;
+  box-sizing: border-box;
+}
+
+.tenders-container {
+  display: grid;
+  gap: 20px;
+}
+
+.card {
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 5px;
+}
+
+.card h2 {
+  margin-top: 0;
+  color: #40514E;
+}
+
+.card p {
+  color: #0a4c4e;
+  margin-bottom: 10px;
+}
+
+/* Your existing CSS styles */
+
+.card {
+  position: relative;
+}
+
+.description-btn {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  padding: 2px;
+  background-color: #11999E;
+  color: #FFF;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.compliance-btn {
+  background-color: #11999E;
+  margin: 0.05rem 0.1rem;
+  padding: 0.05rem 0.9rem;
+  border-radius: 0.5rem;
+  color: #fff;
+  border: none;
+}
+
+.state-btn,
+.ministry-btn,
+.category-btn,
+.industry-btn {
+  background-color: #11999E;
+  color: #fff;
+  margin: 0.05rem 0.1rem;
+  padding: 0.05rem 0.9rem;
+  border-radius: 0.5rem;
+  border: none;
+}
+
+.acts-btn {
+  background-color: #40514E;
+  color: #fff;
+  margin: 0.5rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.5rem;
+  border: none;
+}

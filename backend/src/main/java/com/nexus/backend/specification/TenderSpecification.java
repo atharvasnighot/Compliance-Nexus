@@ -12,7 +12,7 @@ import org.springframework.data.jpa.domain.Specification;
 
 public class TenderSpecification {
 
-    public static Specification<Tender> titleContains(String searchString) {
+    public static Specification<Tender> titleOrDescriptionContains(String searchString) {
 
         return (root, query, builder) -> {
             Join<Act, Ministry> ministryJoin = root.join("ministry", JoinType.LEFT);

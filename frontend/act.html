@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="act.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="act-section" id="act-section">
+            <!-- Act details will be inserted here -->
+        </div>
+
+        <div class="compliance-list" id="compliance-list">
+            <!-- Compliance list will be inserted here -->
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Fetch Act details and Compliance list
+            const actId = 2;
+            fetch(`http://localhost:8080/act/${actId}`)
+                .then(response => response.json())
+                .then(data => {
+                    // Update Act details
+                    const actSection = document.getElementById('act-section');
+                    actSection.innerHTML = `
+                       <div> <h2><b>Act:</b></h2></div>
+                       <div class="data1"><p>${data.title}</p>
+                        <p>${data.description}</p></div>
+                    `;
+
+                    // Update Compliance list
+                    const complianceList = document.getElementById('compliance-list');
+                    complianceList.innerHTML = `<h1>Compliance List</h1>`;
+                    data.complianceSet.forEach(compliance => {
+                        complianceList.innerHTML += `
+                            <div class="compliance-item">
+                                ${compliance.description.split('\n')[0]} <!-- Display only the first line -->
+                                <button class="description-btn" onclick="window.location.href='desp.html'">Description</button>
+                            </div>
+                        `;
+                    });
+                })
+                .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+
+</html>

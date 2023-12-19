@@ -49,5 +49,16 @@ public class Act {
     @JsonManagedReference
     private List<Compliance> complianceSet;
 
+    @Transient
+    private String ministryName;
+
+    @Transient
+    private String industryName;
+
+    @Transient
+    private String categoryName;
+
+    @Transient
+    private String stateName;
 
 }

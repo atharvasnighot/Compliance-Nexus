@@ -1,6 +1,6 @@
 package com.nexus.backend.controller;
 
-import com.nexus.backend.dto.Tender;
+import com.nexus.backend.dto.UserTender;
 import com.nexus.backend.entity.Act;
 import com.nexus.backend.entity.User;
 import com.nexus.backend.repository.ActRepository;
@@ -77,13 +77,13 @@ public class ActsController {
     }
 
     @GetMapping("/check/{actId}")
-    public ResponseEntity<String> checkIfTenderIsCompliant(@PathVariable Integer actId, @RequestBody Tender tender){
+    public ResponseEntity<String> checkIfTenderIsCompliant(@PathVariable Integer actId, @RequestBody UserTender userTender){
 
         Act act = actRepository.findById(actId).get();
         if (act == null)
             return new ResponseEntity<>("Act not found", HttpStatus.NOT_FOUND);
 
-        String response = aiService.checkIfCompliant(act, tender);
+        String response = aiService.checkIfCompliant(act, userTender);
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }

@@ -96,13 +96,12 @@ public class ActsService {
     }
 
     public List<Act> searchActs(String searchString) {
-        Specification<Act> titleSpecification = ActSpecification.titleContains(searchString);
+        Specification<Act> titleOrDescriptionSpecification = ActSpecification.titleOrDescriptionContains(searchString);
 
-        Specification<Act> finalSpecification = Specification.where(titleSpecification);
+        Specification<Act> finalSpecification = Specification.where(titleOrDescriptionSpecification);
 
         return actRepository.findAll(finalSpecification);
     }
-
 
 }
 

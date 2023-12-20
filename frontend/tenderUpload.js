@@ -1,4 +1,3 @@
-// preferenceScript.js
 
 function generateComplianceSets() {
     const complianceCount = document.getElementById("complianceCount").value;
@@ -39,7 +38,7 @@ function generateComplianceSets() {
 }
 
 function submitForm(event) {
-    event.preventDefault(); // Prevent the default form submission
+    event.preventDefault(); 
 
     const form = document.getElementById('updateForm');
     const formData = new FormData(form);
@@ -50,7 +49,6 @@ function submitForm(event) {
         formObject[key] = value;
     });
 
-    // Map selected options to their indexes
     formObject.title = document.getElementById('title').value;
     formObject.description = document.getElementById('description').value;
     const ministryOptions = document.getElementById('ministrySelect').options;
@@ -83,7 +81,6 @@ function submitForm(event) {
     formObject.complianceSet = complianceSet;
 
     console.log(formObject);
-    // Make an HTTP request to the backend
     sendUpdateRequest(formObject);
 }
 

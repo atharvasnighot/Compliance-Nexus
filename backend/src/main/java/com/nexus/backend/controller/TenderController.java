@@ -21,7 +21,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/tender")
@@ -64,30 +63,20 @@ public class TenderController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @GetMapping("/searchByPreferences/{searchString}")
-    public ResponseEntity<List<Tender>> searchTenderByPreferences(@PathVariable String searchString, @RequestHeader("Authorization") String jwt) throws Exception {
+    @GetMapping("/searchByPreferences")
+    public ResponseEntity<List<Tender>> searchTenderByPreferences(@RequestHeader("Authorization") String jwt) throws Exception {
         User user = userService.findUserProfile(jwt);
 
         if (user == null) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
 
-        // Extract user preferences
-        State userState = user.getState();
-        Industry userIndustry = user.getIndustry();
         Ministry userMinistry = user.getMinistry();
+        Industry userIndustry = user.getIndustry();
         Category userCategory = user.getCategory();
+        State userState = user.getState();
 
-        // Use user preferences to filter tenders by default
-        List<Tender> result = actsService.searchTendersByPreferences(userState, userIndustry, userMinistry, userCategory);
-
-        // If a search string is provided, further filter the results
-        if (searchString != null && !searchString.isEmpty()) {
-            result = result.stream()
-                    .filter(tender -> tender.getTitle().toLowerCase().contains(searchString.toLowerCase()) ||
-                            tender.getDescription().toLowerCase().contains(searchString.toLowerCase()))
-                    .collect(Collectors.toList());
-        }
+        List<Tender> result = tenderRepository.findByMinistryAndIndustryAndCategoryAndState(userMinistry, userIndustry, userCategory, userState);
 
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
@@ -179,5 +168,16 @@ public class TenderController {
         }
 
         return builder.toString();
+    }
+
+    @PostMapping("/createWithAi")
+    public ResponseEntity<Tender> createWithAi(@RequestParam("file") MultipartFile file, @RequestHeader("Authorization") String jwt) throws Exception {
+        User user = userService.findUserProfile(jwt);
+        if (user.getIsAdmin() == false){
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+        Tender tender = new Tender();
+        Tender createdAct = actsService.createAct(tender, user.getId());
+        return new ResponseEntity<>(createdAct, HttpStatus.CREATED);
     }
 }

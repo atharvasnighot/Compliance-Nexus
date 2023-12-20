@@ -1,0 +1,16 @@
+{
+    "name": "Compiance Nexus",
+    "short_name": "Nexus",
+    "start_url": "login.html",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#333333",
+    "icons": [
+      {
+        "src": "make-me-a-simple-logo-similar-hexagonal-to-this-for-my-application-named-compliance-nexus-logo-sh-8332 (1).png",
+        "sizes": "192x192",
+        "type": "image/png"
+      }
+    ]
+  }
+  

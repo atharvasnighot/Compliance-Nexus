@@ -16,7 +16,7 @@ function createTenderCard(tender) {
     const ministry = createButton("Ministry", tender.ministry ? tender.ministry.name : 'null', "ministry-btn");
     const category = createButton("Category", tender.category ? tender.category.name : 'null', "category-btn");
     const industry = createButton("Industry", tender.industry ? tender.industry.name : 'null', "industry-btn");
-    const tendersButton = createButton("Tenders", "View Tender", "tenders-btn", "desp.html");
+    const tendersButton = createButton("Tenders", "View Tender", "tenders-btn", "tender.html");
   
     // Append elements to the card
     card.appendChild(title);

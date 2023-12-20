@@ -95,6 +95,20 @@ public class TenderService {
         }
     }
 
+    public List<Tender> searchTendersByPreferences(State userState, Industry userIndustry, Ministry userMinistry, Category userCategory) {
+        Specification<Tender> stateSpecification = TenderSpecification.hasState(userState);
+        Specification<Tender> industrySpecification = TenderSpecification.hasIndustry(userIndustry);
+        Specification<Tender> ministrySpecification = TenderSpecification.hasMinistry(userMinistry);
+        Specification<Tender> categorySpecification = TenderSpecification.hasCategory(userCategory);
+
+        Specification<Tender> finalSpecification = Specification.where(stateSpecification)
+                .and(industrySpecification)
+                .and(ministrySpecification)
+                .and(categorySpecification);
+
+        return tenderRepository.findAll(finalSpecification);
+    }
+
     public List<Tender> searchActs(String searchString) {
         Specification<Tender> titleOrDescriptionSpecification = TenderSpecification.titleOrDescriptionContains(searchString);
 

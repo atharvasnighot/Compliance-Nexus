@@ -139,7 +139,7 @@ form button:hover{
 form button i,
 form .backBtn i{
     margin: 0 6px;
-}
+} 
 form .backBtn i{
     transform: rotate(180deg);
 }

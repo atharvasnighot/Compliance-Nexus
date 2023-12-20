@@ -19,6 +19,7 @@ public class TenderCompliance {
     @ManyToOne
     @JsonBackReference
     private Tender tender;
+
     private String title;
     private String description;
     private String reference;

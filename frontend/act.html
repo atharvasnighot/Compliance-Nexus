@@ -6,63 +6,249 @@
 </head>
 
 <body>
-    <div class="container">
-        <div class="act-section" id="act-section">
-            <!-- Act details will be inserted here -->
-        </div>
 
-        <div class="compliance-list" id="compliance-list">
-            <!-- Compliance list will be inserted here -->
-        </div>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #E4F9F5;
+        margin: 0;
+        padding: 0;
+        color: #40514E;
+    }
+
+    .main-container {
+        width: 80%;
+        margin: 50px auto;
+    }
+
+    .box-container {
+        background-color: #FFFFFF;
+        padding: 20px;
+        border-radius: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+    }
+
+    .act-container h2,
+    .upload-heading {
+        color: #30E3CA;
+        margin-bottom: 10px;
+    }
+
+    .compliance-item {
+        background-color: #30E3CA;
+        color: #FFFFFF;
+        padding: 15px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        position: relative;
+    }
+
+    .description-btn {
+        background-color: #11999E;
+        color: #FFFFFF;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 3px;
+        cursor: pointer;
+        position: absolute;
+        bottom: 15px;
+        right: 5px;
+    }
+
+    .compliance-item:hover {
+        border-radius: 10px;
+        border-color: #11999E;
+        cursor: pointer;
+        box-shadow: 0px 0px 2px 2px #40514E;
+        transition: 10;
+    }
+
+    .description-btn:hover {
+        background-color: #40514E;
+    }
+
+    .compliance-item {
+        box-shadow: 0px 0px 2px 2px #fff;
+    }
+
+    #show-documents-btn{
+        background-color: #11999E;
+        color: #FFFFFF;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        position: relative;
+        bottom: 15px;
+    }
+
+    #upload-btn {
+        background-color: #11999E;
+        color: #FFFFFF;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        position: static;
+        bottom: 10px;
+    }
+
+    #file-input {
+        display: none;
+    }
+
+    #choose-file-btn {
+        background-color: #11999E;
+        color: #FFFFFF;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        display: inline-block;
+    }
+
+    .user-input-container {
+        background-color: #40514E;
+        color: #FFFFFF;
+        padding: 20px;
+        border-radius: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+    }
+
+    #user-input-textarea {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #11999E;
+        border-radius: 5px;
+    }
+
+    #upload-my-doc-btn {
+        background-color: #11999E;
+        color: #FFFFFF;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+</style>
+
+<div class="main-container">
+    <div class="box-container" id="act-section">
+        <!-- Act details will be inserted here -->
     </div>
 
+    <div class="box-container" id="compliance-list">
+        <!-- Compliance list will be inserted here -->
+    </div>
 
-    
-    <script>
-       document.addEventListener("DOMContentLoaded", function () {
-    // Fetch Act details and Compliance list
-    const actId = 2;
-    const complianceList = document.getElementById('compliance-list');
+    <div class="box-container" id="documents-container">
+        <!-- Show Required Documents Button and Textarea -->
+        <button id="show-documents-btn">Show Required Documents</button>
+        <textarea id="required-documents-textarea" placeholder="Required Documents"></textarea>
+    </div>
 
-    fetch(`http://localhost:8080/act/${actId}`)
-        .then(response => response.json())
-        .then(data => {
-            // Update Act details
-            const actSection = document.getElementById('act-section');
-            actSection.innerHTML = `
-                <h2>Act:</h2>
-                <p>${data.title}</p>
-                <p>${data.description}</p>
-            `;
+    <div class="box-container" id="upload-container">
+        <!-- Upload Missing Document Heading, Upload Button, and File Input -->
+        <h2 class="upload-heading">Upload Missing Document</h2>
+        <label for="file-input" id="choose-file-btn">Choose File</label>
+        <input type="file" id="file-input">
+        <button id="upload-btn">Upload</button>
+    </div>
 
-            // Update Compliance list
-            complianceList.innerHTML = `<h1>Compliance List</h1>`;
-            data.complianceSet.forEach(compliance => {
-                const complianceItem = document.createElement('div');
-                complianceItem.classList.add('compliance-item');
-                complianceItem.innerHTML = `
-                    <p>${compliance.description.split('\n')[0]}</p> <!-- Display only the first line -->
-                    <button class="description-btn">Description</button>
-                    <div class="compliance-details" style="display: none;">
-                        <p><strong>Description:</strong> ${compliance.description}</p>
-                        <p><strong>Reference:</strong> ${compliance.reference}</p>
-                        <p><strong>Penalty:</strong> ${compliance.penalty}</p>
-                        <p><strong>Form:</strong> ${compliance.form}</p>
-                    </div>
+    <div class="user-input-container">
+        <!-- User Input Textarea and Upload My Document Button -->
+        <textarea id="user-input-textarea" placeholder="Enter your text here"></textarea>
+        <button id="upload-my-doc-btn">Upload My Plan </button>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Fetch Act details and Compliance list
+        const actId = 252;
+        const complianceList = document.getElementById('compliance-list');
+
+        fetch(`http://localhost:8080/act/${actId}`)
+            .then(response => response.json())
+            .then(data => {
+                // Update Act details
+                const actSection = document.getElementById('act-section');
+                actSection.innerHTML = `
+                    <h2>Act:</h2>
+                    <p>${data.title}</p>
+                    <p>${data.description}</p>
                 `;
 
-                complianceItem.addEventListener('click', function () {
-                    const detailsSection = complianceItem.querySelector('.compliance-details');
-                    detailsSection.style.display = (detailsSection.style.display === 'none' || detailsSection.style.display === '') ? 'block' : 'none';
+                // Update Compliance list
+                complianceList.innerHTML = '<h1>Compliance List</h1>';
+                data.complianceSet.forEach(compliance => {
+                    const complianceItem = document.createElement('div');
+                    complianceItem.classList.add('compliance-item');
+                    complianceItem.innerHTML = `
+                        <p>${compliance.description.split('\n')[0]}</p> <!-- Display only the first line -->
+                        <button class="description-btn">Description</button>
+                        <div class="compliance-details" style="display: none;">
+                            <p><strong>Description:</strong> ${compliance.description}</p>
+                            <p><strong>Reference:</strong> ${compliance.reference}</p>
+                            <p><strong>Penalty:</strong> ${compliance.penalty}</p>
+                            <p><strong>Form:</strong> ${compliance.form}</p>
+                        </div>
+                    `;
+
+                    complianceItem.addEventListener('click', function () {
+                        const detailsSection = complianceItem.querySelector('.compliance-details');
+                        detailsSection.style.display = (detailsSection.style.display === 'none' || detailsSection.style.display === '') ? 'block' : 'none';
+                    });
+
+                    complianceList.appendChild(complianceItem);
                 });
+            })
+            .catch(error => console.error('Error:', error));
 
-                complianceList.appendChild(complianceItem);
-            });
-        })
-        .catch(error => console.error('Error:', error));
-});
+        // Show Required Documents Button Click Event
+        const showDocumentsBtn = document.getElementById('show-documents-btn');
+        const requiredDocumentsTextarea = document.getElementById('required-documents-textarea');
 
-    </script>
+        showDocumentsBtn.addEventListener('click', function () {
+            // Fetch and display document details based on the entered ID
+            const documentId = documentIdInput.value;
+
+            // Fetch document details from the backend using the document ID
+            fetch(`http://localhost:8080/documents/${documentId}`)
+                .then(response => response.json())
+                .then(documentData => {
+                    // Display the fetched document details in the textarea
+                    requiredDocumentsTextarea.value = JSON.stringify(documentData, null, 2);
+                })
+                .catch(error => console.error('Error fetching document details:', error));
+        });
+
+        // Upload Missing Document Button Click Event
+        const uploadBtn = document.getElementById('upload-btn');
+        const fileInput = document.getElementById('file-input');
+
+        uploadBtn.addEventListener('click', function () {
+            // Handle the logic to upload the missing document
+            // You can use the fileInput.files[0] to get the selected file
+            // and send it to the server for processing.
+            // Example: const selectedFile = fileInput.files[0];
+        });
+
+        // Upload My Document Button Click Event
+        const uploadMyDocBtn = document.getElementById('upload-my-doc-btn');
+        const userInputTextarea = document.getElementById('user-input-textarea');
+
+        uploadMyDocBtn.addEventListener('click', function () {
+            // Handle the logic to upload the user's document
+            // You can use userInputTextarea.value to get the entered text
+            // and send it to the server for processing.
+            // Example: const enteredText = userInputTextarea.value;
+        });
+    });
+</script>
 </body>
 
 </html>

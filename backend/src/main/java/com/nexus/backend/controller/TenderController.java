@@ -4,6 +4,10 @@ import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.parser.PdfTextExtractor;
 import com.nexus.backend.entity.Tender;
 import com.nexus.backend.entity.User;
+import com.nexus.backend.entity.preferences.Category;
+import com.nexus.backend.entity.preferences.Industry;
+import com.nexus.backend.entity.preferences.Ministry;
+import com.nexus.backend.entity.preferences.State;
 import com.nexus.backend.repository.TenderRepository;
 import com.nexus.backend.service.AiService;
 import com.nexus.backend.service.PdfExtractorService;
@@ -17,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/tender")
@@ -59,7 +64,36 @@ public class TenderController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @GetMapping("/{tenderId}")
+    @GetMapping("/searchByPreferences/{searchString}")
+    public ResponseEntity<List<Tender>> searchTenderByPreferences(@PathVariable String searchString, @RequestHeader("Authorization") String jwt) throws Exception {
+        User user = userService.findUserProfile(jwt);
+
+        if (user == null) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+
+        // Extract user preferences
+        State userState = user.getState();
+        Industry userIndustry = user.getIndustry();
+        Ministry userMinistry = user.getMinistry();
+        Category userCategory = user.getCategory();
+
+        // Use user preferences to filter tenders by default
+        List<Tender> result = actsService.searchTendersByPreferences(userState, userIndustry, userMinistry, userCategory);
+
+        // If a search string is provided, further filter the results
+        if (searchString != null && !searchString.isEmpty()) {
+            result = result.stream()
+                    .filter(tender -> tender.getTitle().toLowerCase().contains(searchString.toLowerCase()) ||
+                            tender.getDescription().toLowerCase().contains(searchString.toLowerCase()))
+                    .collect(Collectors.toList());
+        }
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+
+    @GetMapping("/{actId}")
     public ResponseEntity<Tender> getActById(@PathVariable Integer actId) {
         Tender result = tenderRepository.findById(actId).get();
         return new ResponseEntity<>(result, HttpStatus.OK);
@@ -83,37 +117,48 @@ public class TenderController {
         return new ResponseEntity<>(allActs, HttpStatus.OK);
     }
 
-    @GetMapping("/check/{actId}")
-    public ResponseEntity<String> checkIfTenderIsCompliant(@PathVariable Integer actId, @RequestBody String userTender){
+    @GetMapping("/docList/{actId}")
+    public ResponseEntity<String> getDocumentList(@PathVariable Integer actId){
 
         Tender act = tenderRepository.findById(actId).get();
         if (act == null)
             return new ResponseEntity<>("Tender not found", HttpStatus.NOT_FOUND);
 
-        //String userTender = pdfExtractorService.extractPdf("A:\\Downloads\\DRDO_tender5.pdf");
 
-        String response = aiService.checkIfTenderIsCompliant(act, userTender);
+        String response = aiService.getDocList(act);
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @PostMapping("/checkPdf")
-    public ResponseEntity<String> checkIfTenderIsCompliantWithPdf(
-            @PathVariable Integer actId,
-            @RequestParam MultipartFile userTender) {
 
-        Tender act = tenderRepository.findById(actId).orElse(null);
+    @GetMapping("/checkFromPlan/{actId}")
+    public ResponseEntity<String> checkIfCompliantByPlan(@PathVariable Integer actId, @RequestBody String userPlan){
+        Tender act = tenderRepository.findById(actId).get();
         if (act == null)
             return new ResponseEntity<>("Tender not found", HttpStatus.NOT_FOUND);
 
-        // Extract text from the uploaded PDF file
-        String extractedText = extractPdf(userTender);
-
-        // Call the AI service with the extracted text
-        String response = aiService.checkIfTenderIsCompliant(act, extractedText);
+        String response = aiService.checkIfTenderCompliant(act, userPlan);
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+//    @PostMapping("/checkPdf")
+//    public ResponseEntity<String> checkIfTenderIsCompliantWithPdf(
+//            @PathVariable Integer actId,
+//            @RequestParam MultipartFile userTender) {
+//
+//        Tender act = tenderRepository.findById(actId).orElse(null);
+//        if (act == null)
+//            return new ResponseEntity<>("Tender not found", HttpStatus.NOT_FOUND);
+//
+//        // Extract text from the uploaded PDF file
+//        String extractedText = extractPdf(userTender);
+//
+//        // Call the AI service with the extracted text
+//        String response = aiService.checkIfTenderIsCompliant(act, extractedText);
+//
+//        return new ResponseEntity<>(response, HttpStatus.OK);
+//    }
 
     private String extractPdf(MultipartFile file) {
         StringBuilder builder = new StringBuilder();

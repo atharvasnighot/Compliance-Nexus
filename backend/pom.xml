@@ -104,6 +104,19 @@
 
 		<dependency>
 			<groupId>dev.langchain4j</groupId>
+			<artifactId>langchain4j-embeddings</artifactId>
+			<version>0.24.0</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/dev.langchain4j/langchain4j-embeddings-all-minilm-l6-v2-q -->
+		<dependency>
+			<groupId>dev.langchain4j</groupId>
+			<artifactId>langchain4j-embeddings-all-minilm-l6-v2</artifactId>
+			<version>0.24.0</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>dev.langchain4j</groupId>
 			<artifactId>langchain4j-embeddings-all-minilm-l6-v2-q</artifactId>
 			<version>0.24.0</version>
 			<scope>test</scope>

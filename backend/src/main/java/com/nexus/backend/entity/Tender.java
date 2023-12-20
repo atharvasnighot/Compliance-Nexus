@@ -50,11 +50,29 @@ public class Tender {
 
     @Override
     public String toString() {
-        // Use super.toString() or access the fields directly
-        return "Tender{" +
-                "id=" + id +
-                ", name='" + title + '\'' +
-                '}';
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Tender{")
+                .append("id=").append(id)
+                .append(", totalCompliance=").append(totalCompliance)
+                .append(", title='").append(title).append('\'')
+                .append(", description='").append(description).append('\'')
+                .append(", date=").append(date)
+                .append(", uploaderId=").append(uploaderId);
+
+        if (complianceSet != null) {
+            stringBuilder.append(", complianceSet=[");
+            for (TenderCompliance compliance : complianceSet) {
+                stringBuilder.append("{")
+                        .append("complianceId=").append(compliance.getId())
+                        .append(", description='").append(compliance.getDescription()).append('\'')
+                        .append("}, ");
+            }
+            stringBuilder.append("]");
+        }
+
+
+        stringBuilder.append('}');
+        return stringBuilder.toString();
     }
 
 }

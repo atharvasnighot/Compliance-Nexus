@@ -8,20 +8,15 @@ import com.nexus.backend.service.AiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
-@Controller
+@RestController
 @RequestMapping("/upload")
 public class FileUploadController {
 
@@ -31,8 +26,8 @@ public class FileUploadController {
     @Autowired
     private TenderRepository tenderRepository;
 
-    @PostMapping("/pdfs/{tenderId}")
-    public ResponseEntity<String> handleFileUpload(@RequestParam("files") MultipartFile[] files, @PathVariable Integer tenderId) {
+    @PostMapping("/pdfs/{actId}")
+    public ResponseEntity<String> handleFileUpload(@RequestParam("files") MultipartFile[] files, @PathVariable Integer actId) {
         List<String> extractedTexts = new ArrayList<>();
 
         // Process each uploaded file
@@ -48,15 +43,15 @@ public class FileUploadController {
 
         List<String> userDocList = new ArrayList<>();
         for (String text: extractedTexts) {
-            try {
-                TimeUnit.SECONDS.sleep(21);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+//            try {
+//                TimeUnit.SECONDS.sleep(21);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
             userDocList.add(aiService.getDocType(text));
         }
 
-        Tender tender = tenderRepository.findById(tenderId).get();
+        Tender tender = tenderRepository.findById(actId).get();
         if (tender == null)
             return new ResponseEntity<>("Tender not found", HttpStatus.NOT_FOUND);
         String response = aiService.checkMissingDocuments(userDocList, tender);

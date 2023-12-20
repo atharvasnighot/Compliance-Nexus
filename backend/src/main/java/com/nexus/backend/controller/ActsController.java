@@ -75,16 +75,16 @@ public class ActsController {
         return new ResponseEntity<>(allActs, HttpStatus.OK);
     }
 
-    @GetMapping("/check/{actId}")
-    public ResponseEntity<String> checkIfTenderIsCompliant(@PathVariable Integer actId, @RequestBody String userTender){
-
-        Act act = actRepository.findById(actId).get();
-        if (act == null)
-            return new ResponseEntity<>("Act not found", HttpStatus.NOT_FOUND);
-
-        String response = aiService.checkIfCompliant(act, userTender);
-
-        return new ResponseEntity<>(response, HttpStatus.OK);
-    }
+//    @GetMapping("/check/{actId}")
+//    public ResponseEntity<String> checkIfTenderIsCompliant(@PathVariable Integer actId, @RequestBody String userTender){
+//
+//        Act act = actRepository.findById(actId).get();
+//        if (act == null)
+//            return new ResponseEntity<>("Act not found", HttpStatus.NOT_FOUND);
+//
+//        String response = aiService.checkIfCompliant(act, userTender);
+//
+//        return new ResponseEntity<>(response, HttpStatus.OK);
+//    }
 }
 

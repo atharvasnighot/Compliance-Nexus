@@ -131,7 +131,7 @@ public class TenderController {
     }
 
 
-    @GetMapping("/checkFromPlan/{actId}")
+    @PostMapping("/checkFromPlan/{actId}")
     public ResponseEntity<String> checkIfCompliantByPlan(@PathVariable Integer actId, @RequestBody String userPlan){
         Tender act = tenderRepository.findById(actId).get();
         if (act == null)

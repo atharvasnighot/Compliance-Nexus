@@ -1,0 +1,88 @@
+
+
+
+
+
+
+
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #E4F9F5;
+    margin: 0;
+    padding: 0;
+    color: #40514E;
+}
+
+.container {
+    width: 80%;
+    margin: 50px auto;
+    background-color: #FFFFFF;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.section {
+    margin-bottom: 20px;
+}
+
+.section h2 {
+    color: #30E3CA;
+    margin-bottom: 10px;
+}
+
+a {
+    color: #11999E;
+    text-decoration: none;
+    margin-right: 10px;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+input[type="file"] {
+    margin-top: 10px;
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
+
+.compliance-item {
+    background-color: #30E3CA;
+    color: #FFFFFF;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    position: relative;
+}
+
+.description-btn {
+    background-color: #11999E;
+    color: #FFFFFF;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+}
+
+.compliance-item:hover {
+    border-radius: 10px;
+    border-color: #11999E;
+    cursor: pointer;
+    box-shadow: 0px 0px 2px 2px #40514E;
+    transition: 10;
+}
+
+.description-btn:hover {
+    background-color: #40514E;
+}
+
+.compliance-item {
+    box-shadow: 0px 0px 2px 2px #fff;
+}
+
+

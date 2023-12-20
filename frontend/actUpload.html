@@ -3,48 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="manifest" href="manifest.json">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
-    <!----======== CSS ======== -->
-    <link rel="stylesheet" href="register.css">
+
+    <!-- Google Font Import - Poppins -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="tenderUpload.css">
     <link rel="manifest" href="manifest.json">
-    <!----===== Iconscout CSS ===== -->
+    <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
+    <!-- Iconscout CSS -->
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
-   <title>Register with Nexus</title>
+    
+    <title>Admin Upload</title>
 </head>
 <body>
     <div class="container">
-        <header>Registration</header>
+        <header>Admin Upload</header>
         <form id="updateForm" action="#" onsubmit="submitForm(event)">
             <div class="form first">
-                <div class="details-personal">
-                    <span class="title">Personal Details</span>
+                <div class="details-preference">
+                    <span class="title">Preference Details</span>
                     <div class="fields">
+                        <!-- ... -->
+<div class="input-field">
+    <label>Title</label>
+    <input type="text" id="title" name="title" placeholder="Enter the Title" required>
+</div>
+<div class="input-field">
+    <label>Description</label>
+    <textarea id="description" name="description" placeholder="Enter the Description" required></textarea>
+</div>
+<!-- ... -->
 
-                        <div class="input-field">
-                            <label>Organization</label>
-                            <input type="text" name="organization" placeholder="Enter your Organization" required>
-                        </div>
-                        <div class="input-field">
-                            <label>Identity(Admin)</label>
-                            <select id="selectslot">
-                                <option>select</option>
-                                <option>Yes</option>
-                                <option>No</option>
-                        </select>
-                        </div>
-
-                        <div class="input-field">
-                            <label>Contact</label>
-                            <input type="text" placeholder="Enter your Contact" required>
-                        </div>
-                        
-                    </div>
-                </div>
-                <div class="details ID">
-                    <span class="title">Preferences</span>
-                    <div class="fields">
+                        <!-- Ministry Section -->
                         <div class="input-field">
                             <label>Ministry</label>
                             <select id="ministrySelect" name="ministry">
@@ -101,15 +93,13 @@
     <option>Ministry of Petroleum and Natural Gas</option>
     <option>Ministry of Information and Broadcasting</option>
     <option>Ministry of Shipping and Waterways</option>
-    
-                                </select>
-    
-                        
+
+                            </select>
                         </div>
+                        <!-- Industry Section -->
                         <div class="input-field">
                             <label>Industry</label>
-                            
-                            <select id="industrySelect">
+                            <select id="industrySelect" name="industry">
                                 <option>None</option>
                             <option> Agriculture And Allied Industries</option>
                         <option>Alcohol</option>
@@ -145,83 +135,87 @@
     <option> Textile</option>
     <option>Tobacco</option>
     <option>Wood Based Industry</option>
-                                </select>                     
-    
 
+                            </select>
                         </div>
+                        <!-- Category Section -->
                         <div class="input-field">
                             <label>Category</label>
-                            <select id="categorySelect">
-                                
+                            <select id="categorySelect" name="category">
                                 <option>None</option>
-                            <option>Commercial</option>
-                        <option>EHS</option>
-                    <option>Finance & Taxation</option>
-                <option>General</option>
-            <option>Industry Specific</option>
-        <option>Labour</option>
-    <option>Secretarial</option>
-                                </select>
+                                <option>Commercial</option>
+                            <option>EHS</option>
+                        <option>Finance & Taxation</option>
+                    <option>General</option>
+                <option>Industry Specific</option>
+            <option>Labour</option>
+        <option>Secretarial</option>
+                                    </select>
+    
+                           
                         </div>
-
+                        <!-- State Section -->
                         <div class="input-field">
                             <label>State</label>
-                            <select id="stateSelect">
-                                
+                            <select id="stateSelect" name="state">
                                 <option>None</option>
-                            <option> Central</option>
-                        <option>Andaman and Nicobar Islands</option>
-                        <option>Andhra Pradesh</option>
-                        <option>Arunachal Pradesh</option>
-                        <option>Assam</option>
-                        <option>Bihar</option>
-                        <option>Chandigarh</option>
-                        <option>Chhattisgarh</option>
-                        <option>Dadra and Nagar Haveli</option>
-                        <option>Damu and Diu</option>
-                        <option>Delhi</option>
-                        <option>Goa</option>
-                        <option>Gujarat</option>
-                        <option>Haryana</option>
-                        <option>Himachal Pradesh</option>
-                        <option>Jammu Kashmir</option>
-                        <option>Jharkhand</option>
-                        <option>Karnataka</option>
-                        <option>Kerala</option>
-                        <option>Ladakh</option>
-                        <option>Lakshadweep</option>
-                        <option>Madhya Pradesh</option>
-                        <option>Maharashta</option>
-                        <option>Manipur</option>
-                        <option>Meghalaya</option>
-                        <option>Mizoram</option>
-                        <option>Nagaland</option>
-                        <option>Orissa</option>
-                        <option>Podicherry</option>
-                        <option>Punjab</option>
-                        <option>Rajasthan</option>
-                        <option>Sikkim</option>
-                        <option>Tamil Nadu</option>
-                        <option>Telangana</option>
-                        <option>Tripura</option>
-                        <option>Uttar Pradesh</option>
-                        <option>Uttarakhand</option>
-                        <option> Bengal</option>
-                        
-                          </select>
+                                <option> Central</option>
+                            <option>Andaman and Nicobar Islands</option>
+                            <option>Andhra Pradesh</option>
+                            <option>Arunachal Pradesh</option>
+                            <option>Assam</option>
+                            <option>Bihar</option>
+                            <option>Chandigarh</option>
+                            <option>Chhattisgarh</option>
+                            <option>Dadra and Nagar Haveli</option>
+                            <option>Damu and Diu</option>
+                            <option>Delhi</option>
+                            <option>Goa</option>
+                            <option>Gujarat</option>
+                            <option>Haryana</option>
+                            <option>Himachal Pradesh</option>
+                            <option>Jammu Kashmir</option>
+                            <option>Jharkhand</option>
+                            <option>Karnataka</option>
+                            <option>Kerala</option>
+                            <option>Ladakh</option>
+                            <option>Lakshadweep</option>
+                            <option>Madhya Pradesh</option>
+                            <option>Maharashta</option>
+                            <option>Manipur</option>
+                            <option>Meghalaya</option>
+                            <option>Mizoram</option>
+                            <option>Nagaland</option>
+                            <option>Orissa</option>
+                            <option>Podicherry</option>
+                            <option>Punjab</option>
+                            <option>Rajasthan</option>
+                            <option>Sikkim</option>
+                            <option>Tamil Nadu</option>
+                            <option>Telangana</option>
+                            <option>Tripura</option>
+                            <option>Uttar Pradesh</option>
+                            <option>Uttarakhand</option>
+                            <option> Bengal</option>
+                            
+                              
+    
+                            </select>
                         </div>
-                        
+                        <label for="complianceCount" style="color: #11999E;">Enter the Total number of compliance's:</label>
+<input type="number" id="complianceCount" name="complianceCount" min="1" required>
+<button onclick="generateComplianceSets()">Generate Compliance Sets</button>
+
+<div id="complianceContainer"></div>
                     </div>
-                    <button class="nextBtn">
-                        <span class="btnText">Submit</span>
-                    </button>
-                </div> 
-            </div>
-            
-                </div> 
+                </div>
+
+                <button class="nextBtn">
+                    <span class="btnText">Submit</span>
+                </button>
             </div>
         </form>
     </div>
-    <script src="register.js"></script>
+    <script src="tenderUpload.js"></script>
 </body>
 </html>
